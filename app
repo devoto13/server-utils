@@ -117,7 +117,7 @@ class Application:
         app_path = cls.path(name)
         os.system('rm -f /web/infrastructure/nginx/sites/{0}.conf'.format(name))
         if enable:
-            os.system('ln -s {0}/nginx.conf /web/infrastructure/nginx/sites/{0}.conf'.format(app_path, name))
+            os.system('ln -s {0}/nginx.conf /web/infrastructure/nginx/sites/{1}.conf'.format(app_path, name))
         os.system('supervisorctl restart nginx')
 
     @classmethod
