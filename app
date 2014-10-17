@@ -45,7 +45,7 @@ class Port:
 
 
 class Application:
-    apps_root = '/Users/devoto13/apps'
+    apps_root = '/web/apps'
     utils_root = os.path.dirname(os.path.realpath(__file__))
 
     @classmethod
