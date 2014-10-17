@@ -125,7 +125,7 @@ class Application:
         app_path = cls.path(name)
         os.system('rm -f /etc/supervisor/conf.d/{0}.conf'.format(name))
         if enable:
-            os.system('ln -s {0}/supervisor.conf /etc/supervisor/conf.d/{0}.conf'.format(app_path, name))
+            os.system('ln -s {0}/supervisor.conf /etc/supervisor/conf.d/{1}.conf'.format(app_path, name))
             os.system('supervisorctl reread && supervisorctl update && supervisorctl restart {0}'.format(name))
         else:
             os.system('supervisorctl stop {0}'.format(name))
