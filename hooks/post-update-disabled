@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Deploy only master branch
+if [ "$1" !=  "refs/heads/master" ]; then
+    echo "Received branch $2, not deploying.";
+    exit;
+fi
+
+# Fix access to another repo
+unset GIT_DIR
+
+# Deploy
+cd ../app && git pull origin master

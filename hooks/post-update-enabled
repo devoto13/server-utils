@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-read opts
-opts=($opts)
-
 # Deploy only master branch
-if [ "${opts[2]}" !=  "refs/heads/master" ]; then
-    echo "Received branch $1, not deploying.";
+if [ "$1" !=  "refs/heads/master" ]; then
+    echo "Received branch $2, not deploying.";
     exit;
 fi
 
@@ -13,8 +10,11 @@ fi
 unset GIT_DIR
 
 # Deploy
-cd ../app && git pull
-cd .. && fig build && fig stop && fig up -d
+cd ../app && git pull origin master
+cd .. && fig build
+
+name=$(basename `pwd`)
+supervisorctl restart $name
 
 # Remove old images
 docker images | awk '{ if ($1 == "<none>") print $3 }' | xargs docker rmi
