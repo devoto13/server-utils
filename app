@@ -32,7 +32,7 @@ def print_error(message):
 
 
 class Port:
-    file = 'run/port'
+    file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'run/port')
 
     @classmethod
     def get_and_increment(cls):
