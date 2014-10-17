@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+read opts
+opts=($opts)
+
+# Deploy only master branch
+if [ "${opts[2]}" !=  "refs/heads/master" ]; then
+    echo "Received branch $1, not deploying.";
+    exit;
+fi
+
+# Fix access to another repo
+unset GIT_DIR
+
+# Deploy
+cd ../app && git pull
+cd .. && fig build && fig stop && fig up -d
+
+# Remove old images
+docker images | awk '{ if ($1 == "<none>") print $3 }' | xargs docker rmi
