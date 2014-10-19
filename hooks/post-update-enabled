@@ -14,7 +14,7 @@ cd ../app && git pull origin master
 cd .. && fig build
 
 name=$(basename `pwd`)
-supervisorctl restart $name
+supervisorctl restart ${name}
 
 # Remove old images
 docker images | awk '{ if ($1 == "<none>") print $3 }' | xargs docker rmi
