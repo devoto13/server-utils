@@ -13,8 +13,13 @@ unset GIT_DIR
 cd ../app && git pull origin master
 cd .. && fig build
 
+# Stop old container
 name=$(basename `pwd`)
-supervisorctl restart ${name}
+supervisorctl stop ${name}
 
 # Remove old images
 docker images | awk '{ if ($1 == "<none>") print $3 }' | xargs docker rmi
+
+# Start new container
+supervisorctl start ${name}
+
