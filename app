@@ -91,6 +91,9 @@ class Application:
             print_error('Invalid application name.')
             return
 
+        app_path = cls.path(args.name)
+
+        os.system('cd {} && fig build'.format(app_path))
         cls.update_supervisor(args.name, enable=True)
         cls.update_hook(args.name, enable=True)
         cls.update_nginx(args.name, enable=True)
@@ -101,9 +104,12 @@ class Application:
             print_error('Invalid application name.')
             return
 
+        app_path = cls.path(args.name)
+
         cls.update_nginx(args.name, enable=False)
         cls.update_hook(args.name, enable=False)
         cls.update_supervisor(args.name, enable=False)
+        os.system('cd {} && fig rm'.format(app_path))
 
     @classmethod
     def update_hook(cls, name, enable=True):
